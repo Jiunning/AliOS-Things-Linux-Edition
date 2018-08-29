@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# change log 
+# change log
 # 20160722 - support ubuntu 10.04
 
 
@@ -45,7 +45,7 @@ create_sd_installer()
 	umount "$sd_dev"* && sync
 
 	colored_print yellow "start creating the SD card installer....\n"
-	
+
 	# delete old partitions.
 	i=1
 	while [ 1 ]; do
@@ -53,7 +53,7 @@ create_sd_installer()
 		if [ $partitions -eq 0 ]; then
 			break
 		fi
-		
+
 		colored_print yellow "delete partition $i\n"
 		printf "d\n$i\np\nw\n" | fdisk $sd_dev && sync
 		i=`expr $i \+ 1`
@@ -81,7 +81,7 @@ create_sd_installer()
 	# the kernel for installer with SD card.
 #	cp -r ./image/boot/zImage $tmpdir/boot/zImage.installer && sync || exit
 	cp -r ./image/boot/zImage $tmpdir/boot/zImage && sync || exit
-	
+
 	# device tree for installer with SD card.
 	items=`find ./image/boot/ -type f -name "*.dtb" | tr '\n' ' '`
 	for f in $items; do
@@ -105,20 +105,20 @@ create_sd_installer()
 		#tar xf installer_fs.tgz -C $tmpdir/image || exit
 
 		# build ramdisk
-		colored_print yellow "build ramdisk..\n"
-		mkdir -p $tmpdir/ramdisk
-        tar xf image/rootfs.tgz -C $tmpdir/ramdisk || exit
-        cd $tmpdir/ramdisk
-        ln -s sbin/init init
-        find . | cpio -o -H newc | gzip -9 > $local_path/image/initrd.img.gz
-        cd $local_path
+		#colored_print yellow "build ramdisk..\n"
+		#mkdir -p $tmpdir/ramdisk
+        #tar xf image/rootfs.tgz -C $tmpdir/ramdisk || exit
+        #cd $tmpdir/ramdisk
+        #ln -s sbin/init init
+        #find . | cpio -o -H newc | gzip -9 > $local_path/image/initrd.img.gz
+        #cd $local_path
 
 		sync
 	else
 		colored_print yellow "untar the yocto rootfs..\n"
 		tar xf image/rootfs.tgz -C $tmpdir/image || exit
 		sync
-		
+
 		# copy bin version
 		if [ -f image/viabin_ver ]; then
 			colored_print yellow "copy viabin_ver...\n"
@@ -131,7 +131,7 @@ create_sd_installer()
 	colored_print yellow "copy the u-boot...\n"
 	dd if=image/u-boot.bin of=$sd_dev bs=512 seek=2 || exit
 	sync
-	
+
 	# copy u-boot commands for ramdisk
 	if [ "$sd_opt" != "--yocto" ]; then
 		colored_print yellow "copy boot.scr ...\n"
