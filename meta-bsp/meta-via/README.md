@@ -1,7 +1,7 @@
 # meta-via
 
-Yocto BSP layer for VIA i.MX6 serial boards
-[Small Form Factor PCs](https://www.viatech.com/en/systems/small-form-factor-pcs/)
+Yocto BSP layer for VIA i.MX6 serial boards  
+[Small Form Factor PCs](https://www.viatech.com/en/systems/small-form-factor-pcs/), 
 [Industrial Fanless PCs](https://www.viatech.com/en/systems/industrial-fanless-pcs/)
 
 # Dependencies
@@ -14,7 +14,7 @@ This layer depends on:
 # Configure Environment
 
 1. Copy bblayers_artigoa820.conf to /build/conf/bblayer.conf
-2. Copy local__artigoa820.conf to /build/conf/local.conf
+2. Copy local_artigoa820.conf to /build/conf/local.conf
 
 # Quick Start
 
